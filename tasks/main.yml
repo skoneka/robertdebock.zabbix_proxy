@@ -10,6 +10,7 @@
       - zabbix_proxy_server_port <= 65536
       - zabbix_proxy_hostname is defined
       - zabbix_proxy_database_hostname is defined
+      - zabbix_proxy_database_host is defined
       - zabbix_proxy_database_name is defined
       - zabbix_proxy_database_user is defined
       - zabbix_proxy_database_password is defined
@@ -31,10 +32,19 @@
   notify:
     - restart zabbix-proxy
 
+- name: unarchive zabbix proxy schema
+  command: gunzip {{ zabbix_proxy_documentation_directory }}/schema.sql.gz
+  args:
+    creates: "{{ zabbix_proxy_documentation_directory }}/schema.sql"
+  notify:
+    - import zabbix proxy schema
+  when:
+    - ansible_virtualization_type != "docker" or zabbix_proxy_ignore_docker
+
 - name: start and enable zabbix-proxy
   service:
     name: zabbix-proxy
-    state: started
+    state: restarted
     enabled: yes
   when:
     - ansible_virtualization_type != "docker" or zabbix_proxy_ignore_docker

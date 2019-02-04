@@ -6,3 +6,15 @@
     state: restarted
   when:
     - ansible_virtualization_type != "docker" or zabbix_proxy_ignore_docker
+
+
+- name: import zabbix proxy schema
+  mysql_db:
+    state: import
+    name: "{{ zabbix_proxy_database_name }}"
+    target: "{{ zabbix_proxy_documentation_directory }}/schema.sql"
+    login_host: "{{ zabbix_proxy_database_host }}"
+    login_user: "{{ zabbix_proxy_database_user }}"
+    login_password: "{{ zabbix_proxy_database_password }}"
+  when:
+    - ansible_virtualization_type != "docker" or zabbix_ignore_docker

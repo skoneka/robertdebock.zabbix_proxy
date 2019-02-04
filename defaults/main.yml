@@ -10,11 +10,13 @@ zabbix_proxy_server_port: 10051
 
 zabbix_proxy_hostname: "{{ ansible_fqdn }}"
 
-zabbix_proxy_database_hostname: localhost
+# The details to connect to the database.
 zabbix_proxy_database_name: zabbix_proxy
+zabbix_proxy_database_host: localhost
 zabbix_proxy_database_user: zabbix
 zabbix_proxy_database_password: zabbix
 zabbix_proxy_database_port: 3306
+zabbix_proxy_database_hostname: localhost
 
 # To update packages this role places on the system, set `zabbix_proxy_package_state` to `latest`.
 zabbix_proxy_package_state: present

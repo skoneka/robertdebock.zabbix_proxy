@@ -7,3 +7,11 @@ _zabbix_proxy_package:
   Ubuntu: zabbix-proxy-mysql
 
 zabbix_proxy_package: "{{ _zabbix_proxy_package[ansible_distribution] }}"
+
+_zabbix_proxy_documentation_directory:
+  #CentOS: /usr/share/doc/zabbix-proxy-mysql-{{ zabbix_proxy_version }}
+  Debian: /usr/share/doc/zabbix-proxy-mysql
+  Ubuntu: /usr/share/doc/zabbix-proxy-mysql
+
+zabbix_proxy_documentation_directory: "{{ _zabbix_proxy_documentation_directory[ansible_distribution] }}"
+
